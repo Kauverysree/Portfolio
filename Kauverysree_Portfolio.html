@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kauverysree Rajandran — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14171a;
+    --panel: #1b1f24;
+    --panel-2: #20252b;
+    --hairline: #33383e;
+    --text: #e7e4dd;
+    --text-muted: #8b9198;
+    --amber: #d9a441;
+    --steel: #5b8aa6;
+    --ok: #6f9a6a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+
+  .display{font-family:'Barlow Condensed', sans-serif; text-transform:uppercase; letter-spacing:0.04em;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+
+  /* Skip link */
+  .skip-link{position:absolute;left:-999px;top:0;background:var(--amber);color:#14171a;padding:8px 14px;z-index:100;}
+  .skip-link:focus{left:12px;top:12px;}
+
+  /* HERO */
+  header.hero{
+    border-bottom:1px solid var(--hairline);
+    padding:56px 0 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .wo-line{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--text-muted);
+    border-bottom:1px solid var(--hairline);
+    padding-bottom:14px;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .wo-line span.tag{color:var(--amber);}
+  .hero-main{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap;}
+  h1.name{
+    font-size:clamp(40px, 7vw, 68px);
+    line-height:0.95;
+    font-weight:700;
+  }
+  .role-line{
+    display:flex; align-items:center; gap:14px; margin-top:10px; flex-wrap:wrap;
+  }
+  .role-line .role{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-size:18px;
+    color:var(--steel);
+    font-weight:600;
+  }
+  .stamp{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:1.5px solid var(--amber);
+    color:var(--amber);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    padding:4px 10px;
+    border-radius:2px;
+    transform:rotate(-2deg);
+    text-transform:uppercase;
+  }
+  .stamp::before{content:"●"; font-size:8px;}
+  .contact-block{
+    text-align:right;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+  }
+  .contact-block a{text-decoration:none; border-bottom:1px dotted var(--hairline);}
+  .contact-block div{margin-bottom:4px;}
+
+  /* SECTION LABELS */
+  .sec{padding:52px 0; border-bottom:1px solid var(--hairline);}
+  .sec-head{
+    display:flex; align-items:baseline; gap:14px; margin-bottom:28px;
+  }
+  .sec-code{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--amber);
+    letter-spacing:0.1em;
+  }
+  .sec-title{
+    font-family:'Barlow Condensed', sans-serif;
+    font-size:28px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    font-weight:700;
+  }
+  .sec-head::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--hairline);
+  }
+
+  /* PROFILE */
+  .profile-text{max-width:700px; color:var(--text); font-size:16px;}
+  .profile-text p{margin-bottom:0;}
+
+  /* TIMELINE */
+  .timeline{
+    display:flex;
+    flex-direction:column;
+    border-left:2px solid var(--hairline);
+    margin-left:6px;
+  }
+  .t-row{
+    position:relative;
+    padding:14px 0 14px 26px;
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    border-bottom:1px dashed var(--hairline);
+  }
+  .t-row:last-child{border-bottom:none;}
+  .t-row::before{
+    content:"";
+    position:absolute;
+    left:-7px; top:19px;
+    width:11px; height:11px;
+    background:var(--bg);
+    border:2px solid var(--steel);
+    border-radius:50%;
+  }
+  .t-row.current::before{border-color:var(--amber); background:var(--amber);}
+  .t-role{font-family:'Barlow Condensed', sans-serif; text-transform:uppercase; font-size:18px; letter-spacing:0.03em; font-weight:600;}
+  .t-date{font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--text-muted);}
+
+  /* SKILLS - inventory table */
+  .inv-table{width:100%; border-collapse:collapse;}
+  .inv-table tr{border-bottom:1px solid var(--hairline);}
+  .inv-table tr:last-child{border-bottom:none;}
+  .inv-table td{padding:12px 6px; vertical-align:top;}
+  .inv-cat{
+    width:170px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--amber);
+    padding-top:14px;
+  }
+  .inv-items{font-size:15px; color:var(--text);}
+  .inv-items .item{
+    display:inline-block;
+    border:1px solid var(--hairline);
+    background:var(--panel-2);
+    padding:3px 10px;
+    border-radius:2px;
+    margin:3px 6px 3px 0;
+    font-size:13.5px;
+    font-family:'JetBrains Mono', monospace;
+    color:var(--text);
+  }
+
+  /* EXPERIENCE - batch records */
+  .record{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-radius:3px;
+    margin-bottom:20px;
+    overflow:hidden;
+  }
+  .record-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding:18px 20px;
+    border-bottom:1px solid var(--hairline);
+    background:var(--panel-2);
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .record-title{font-family:'Barlow Condensed', sans-serif; font-size:21px; text-transform:uppercase; letter-spacing:0.02em; font-weight:600;}
+  .record-org{color:var(--steel); font-size:13.5px; margin-top:2px;}
+  .record-meta{text-align:right; font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-muted);}
+  .record-meta .id{color:var(--amber);}
+  .record-body{padding:18px 20px;}
+  .record-body ul{list-style:none;}
+  .record-body li{
+    position:relative;
+    padding-left:20px;
+    margin-bottom:10px;
+    font-size:15px;
+    color:var(--text);
+  }
+  .record-body li:last-child{margin-bottom:0;}
+  .record-body li::before{
+    content:"›";
+    position:absolute;
+    left:0; top:0;
+    color:var(--amber);
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  /* EARLIER EXPERIENCE - condensed */
+  .prior-row{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:16px 0;
+    border-bottom:1px dashed var(--hairline);
+    flex-wrap:wrap;
+  }
+  .prior-row:last-child{border-bottom:none;}
+  .prior-role{font-family:'Barlow Condensed', sans-serif; font-size:17px; text-transform:uppercase; font-weight:600;}
+  .prior-org{color:var(--text-muted); font-size:13.5px;}
+  .prior-date{font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-muted); white-space:nowrap;}
+  .prior-desc{font-size:14.5px; color:var(--text-muted); margin-top:4px; max-width:600px;}
+
+  /* PROJECTS */
+  .project-card{
+    border:1px solid var(--hairline);
+    border-left:3px solid var(--steel);
+    background:var(--panel);
+    padding:20px;
+    border-radius:2px;
+  }
+  .project-name{font-family:'Barlow Condensed', sans-serif; font-size:20px; text-transform:uppercase; font-weight:600; letter-spacing:0.02em;}
+  .project-tag{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--steel); letter-spacing:0.08em; margin-bottom:8px;}
+  .project-desc{font-size:15px; color:var(--text); margin-top:6px;}
+
+  /* EDUCATION */
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .edu-card{
+    border:1px solid var(--hairline);
+    padding:18px 20px;
+    background:var(--panel);
+  }
+  .edu-degree{font-family:'Barlow Condensed', sans-serif; font-size:19px; text-transform:uppercase; font-weight:600;}
+  .edu-school{color:var(--text-muted); font-size:13.5px; margin-top:4px;}
+  .edu-date{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--steel); margin-top:8px;}
+
+  /* FOOTER */
+  footer{
+    padding:44px 0 56px;
+    text-align:center;
+  }
+  .end-stamp{
+    display:inline-block;
+    border:1.5px solid var(--hairline);
+    color:var(--text-muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.15em;
+    padding:6px 16px;
+    border-radius:2px;
+    margin-bottom:16px;
+  }
+  footer .contact-row{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+  }
+  footer .contact-row a{margin:0 8px; text-decoration:none; border-bottom:1px dotted var(--hairline);}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+
+  @media (max-width:640px){
+    .hero-main{flex-direction:column; align-items:flex-start;}
+    .contact-block{text-align:left;}
+    .record-head{flex-direction:column;}
+    .record-meta{text-align:left;}
+    .edu-grid{grid-template-columns:1fr;}
+    .inv-cat{width:100%; padding-top:0;}
+    .inv-table td{display:block; width:100%; padding:6px 0;}
+  }
+
+  :focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="wo-line">
+      <span><span class="tag">WORK ORDER</span> NO. WO-2026-FSD-001</span>
+      <span>ISSUED: AUG 2026</span>
+      <span>STATUS: <span class="tag">ACTIVE</span></span>
+    </div>
+    <div class="hero-main">
+      <div>
+        <h1 class="name">Kauverysree<br>Rajandran</h1>
+        <div class="role-line">
+          <span class="role">Full Stack Developer</span>
+          <span class="stamp">Verified · 4+ Yrs</span>
+        </div>
+      </div>
+      <div class="contact-block">
+        <div>Erode, Tamil Nadu, India</div>
+        <div><a href="mailto:kauverysree@gmail.com">kauverysree@gmail.com</a></div>
+        <div>+91 74183 33090</div>
+        <div><a href="https://linkedin.com/in/kauverysreerajandran" target="_blank" rel="noopener">linkedin.com/in/kauverysreerajandran</a></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <section class="sec" id="profile">
+      <div class="sec-head">
+        <span class="sec-code">REC. 01</span>
+        <span class="sec-title">Profile</span>
+      </div>
+      <div class="profile-text">
+        <p>Full stack developer with 4 years at Pinesphere Solutions spanning QA, test leadership, and software engineering. Builds and ships production systems using React.js, React Native, Django, and FastAPI for enterprise clients, including a multi-project engagement with Titan Company Ltd, alongside SaaS platforms built end to end. QA background supports a disciplined, security-conscious approach to shipping stable features.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="timeline">
+      <div class="sec-head">
+        <span class="sec-code">REC. 02</span>
+        <span class="sec-title">Career Timeline</span>
+      </div>
+      <div class="timeline">
+        <div class="t-row current">
+          <span class="t-role">Software Engineer</span>
+          <span class="t-date">Aug 2024 — Present</span>
+        </div>
+        <div class="t-row">
+          <span class="t-role">Test Lead</span>
+          <span class="t-date">Dec 2022 — Aug 2024</span>
+        </div>
+        <div class="t-row">
+          <span class="t-role">QA Engineer</span>
+          <span class="t-date">Oct 2022 — Nov 2022</span>
+        </div>
+        <div class="t-row">
+          <span class="t-role">SME / QA-QC</span>
+          <span class="t-date">Jan 2019 — Jun 2019</span>
+        </div>
+        <div class="t-row">
+          <span class="t-role">Process Associate</span>
+          <span class="t-date">Dec 2017 — Oct 2018</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="skills">
+      <div class="sec-head">
+        <span class="sec-code">REC. 03</span>
+        <span class="sec-title">Core Skills</span>
+      </div>
+      <table class="inv-table">
+        <tr>
+          <td class="inv-cat">Frontend</td>
+          <td class="inv-items">
+            <span class="item">React.js</span><span class="item">React Native</span><span class="item">JavaScript (ES6+)</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="inv-cat">Backend</td>
+          <td class="inv-items">
+            <span class="item">Python</span><span class="item">Django</span><span class="item">DRF</span><span class="item">FastAPI</span><span class="item">PostgreSQL</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="inv-cat">State &amp; API</td>
+          <td class="inv-items">
+            <span class="item">Redux</span><span class="item">Context API</span><span class="item">REST API</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="inv-cat">Design</td>
+          <td class="inv-items">
+            <span class="item">Figma</span><span class="item">Adobe XD</span><span class="item">Tailwind</span><span class="item">Bootstrap</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="inv-cat">Tools</td>
+          <td class="inv-items">
+            <span class="item">Git</span><span class="item">GitHub</span><span class="item">GitLab</span><span class="item">Firebase</span><span class="item">OneSignal</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="inv-cat">Testing</td>
+          <td class="inv-items">
+            <span class="item">React Testing Library</span><span class="item">Selenium</span><span class="item">Manual QA</span>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="sec" id="experience">
+      <div class="sec-head">
+        <span class="sec-code">REC. 04</span>
+        <span class="sec-title">Experience</span>
+      </div>
+
+      <div class="record">
+        <div class="record-head">
+          <div>
+            <div class="record-title">Software Engineer</div>
+            <div class="record-org">Pinesphere Solutions — Coimbatore, India</div>
+          </div>
+          <div class="record-meta">
+            <div class="id">BATCH-2024-SE</div>
+            <div>Aug 2024 — Present</div>
+          </div>
+        </div>
+        <div class="record-body">
+          <ul>
+            <li>Gathered requirements and authored SRS and FRS documentation for SaaS platform builds, translating business needs into system-level specifications for development handoff.</li>
+            <li>Build and maintain full stack applications using React.js, React Native, FastAPI, Django, and PostgreSQL across enterprise and SaaS projects.</li>
+            <li>Delivered three enterprise systems for Titan Company Ltd (CBE Case Plant): a Track and Trace system, a PPC Inventory Traceability system, and a Safety Portal UI/UX redesign.</li>
+            <li>Designed an agentic AI framework for a Flutter/FastAPI/PostgreSQL project, coordinating 30 specialized agents through an orchestrator pattern with structured routing and memory policies.</li>
+            <li>Exploring RAG architecture, LangChain, and fine-tuning workflows through applied self-study, extending agentic AI practice beyond the orchestrator framework work.</li>
+            <li>Led security remediation on a VAPT audit covering 35 findings, fixing BOLA/IDOR and unauthenticated endpoint vulnerabilities in Django REST Framework.</li>
+            <li>Implemented SSO integration with Microsoft Entra ID (Azure AD) using MSAL for enterprise portal access.</li>
+            <li>Built two SaaS platforms end to end, a community matrimony platform and a dental marketing SaaS, covering requirements, architecture, and development.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-head">
+          <div>
+            <div class="record-title">Test Lead</div>
+            <div class="record-org">Pinesphere Solutions — Coimbatore, India</div>
+          </div>
+          <div class="record-meta">
+            <div class="id">BATCH-2022-TL</div>
+            <div>Dec 2022 — Aug 2024</div>
+          </div>
+        </div>
+        <div class="record-body">
+          <ul>
+            <li>Led test planning and execution across web and mobile releases, writing SRS, FRS, and test plan documentation for development handoffs.</li>
+            <li>Debugged and resolved cross-device UI issues across Android and iOS builds using Expo Go.</li>
+            <li>Translated business requirements into UI/UX specifications in Figma with development and product teams.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="record">
+        <div class="record-head">
+          <div>
+            <div class="record-title">QA Engineer</div>
+            <div class="record-org">Pinesphere Solutions — Coimbatore, India</div>
+          </div>
+          <div class="record-meta">
+            <div class="id">BATCH-2022-QA</div>
+            <div>Oct 2022 — Nov 2022</div>
+          </div>
+        </div>
+        <div class="record-body">
+          <ul>
+            <li>Conducted functional testing and defect logging during onboarding to the Pinesphere engineering team.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="earlier">
+      <div class="sec-head">
+        <span class="sec-code">REC. 05</span>
+        <span class="sec-title">Earlier Experience</span>
+      </div>
+
+      <div class="prior-row">
+        <div>
+          <div class="prior-role">SME / QA-QC</div>
+          <div class="prior-org">Technosoft Global Services</div>
+          <div class="prior-desc">Led QA for 2D and 3D annotation labeling on autonomous driving datasets; standardized multi-country annotation files for regional compliance.</div>
+        </div>
+        <div class="prior-date">Jan 2019 — Jun 2019</div>
+      </div>
+
+      <div class="prior-row">
+        <div>
+          <div class="prior-role">Process Associate / QA-QC</div>
+          <div class="prior-org">VISTA Engineering Solutions — external at Robert Bosch</div>
+        </div>
+        <div class="prior-date">Dec 2017 — Oct 2018</div>
+      </div>
+    </section>
+
+    <section class="sec" id="projects">
+      <div class="sec-head">
+        <span class="sec-code">REC. 06</span>
+        <span class="sec-title">Projects</span>
+      </div>
+      <div class="project-card">
+        <div class="project-tag">Mobile App · React Native</div>
+        <div class="project-name">IND Heart Suraksha</div>
+        <div class="project-desc">Built a cross-platform React Native app using Expo Go; configured Firebase push notifications and managed the Play Console release process with EAS Build.</div>
+      </div>
+    </section>
+
+    <section class="sec" id="education" style="border-bottom:none;">
+      <div class="sec-head">
+        <span class="sec-code">REC. 07</span>
+        <span class="sec-title">Education</span>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-degree">MCA</div>
+          <div class="edu-school">Anna University — Erode Sengunthar Engineering College</div>
+          <div class="edu-date">2014 — 2017</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-degree">BCA</div>
+          <div class="edu-school">Bharathiar University — Kongu Arts &amp; Science College</div>
+          <div class="edu-date">2011 — 2014</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="end-stamp">— END OF RECORD —</div>
+  <div class="contact-row">
+    <a href="mailto:kauverysree@gmail.com">kauverysree@gmail.com</a>
+    ·
+    <a href="tel:+917418333090">+91 74183 33090</a>
+    ·
+    <a href="https://linkedin.com/in/kauverysreerajandran" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>
