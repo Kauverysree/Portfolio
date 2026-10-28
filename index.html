@@ -260,6 +260,16 @@
   .practice { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; padding: 40px; border: 1px solid var(--border-2); border-radius: 28px; background: radial-gradient(circle at 90% 50%, rgb(var(--accent-rgb) / .14), transparent 55%), var(--surface); }
   .practice h2 { font-size: clamp(32px, 4vw, 48px); }
   .badges { display: grid; gap: 14px; }
+  .rank-medal svg { transform-origin: 50% 60%; transform: translateY(-6px); }
+  .rank-badge.play .rank-medal svg { animation: rank-rise 2.2s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes rank-rise {
+    0%   { transform: translateY(26px) scale(.35) rotate(-200deg); opacity: 0; }
+    35%  { opacity: 1; }
+    65%  { transform: translateY(-20px) scale(1.12) rotate(370deg); }
+    82%  { transform: translateY(-3px) scale(.97) rotate(356deg); }
+    100% { transform: translateY(-6px) scale(1) rotate(360deg); }
+  }
+  .rank-badge::after { content: ""; }
   .badge { display: flex; align-items: center; gap: 20px; padding: 18px 26px 18px 18px; border-radius: 22px; border: 1px solid var(--border-2); background: rgba(5,8,15,.7); }
   .badge .medal { width: 96px; height: 96px; position: relative; flex: none; }
   .badge .medal img, .badge .medal svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
@@ -298,6 +308,7 @@
     html { scroll-behavior: auto; }
     .dot { animation: none; }
     .shot img { transition: none; }
+    .rank-badge.play .rank-medal svg { animation: none; }
     .scene *, .scene .px { animation: none !important; transition: none !important; }
   }
 
@@ -372,7 +383,7 @@
         </div>
         <div class="hero-stats">
           <div><b>8</b><span>featured projects</span></div>
-          <div><b>3</b><span>Titan enterprise systems</span></div>
+          <div><b>3</b><span>Titan systems: 2 live, 1 in pilot</span></div>
           <div><b>2</b><span>SaaS platforms, end to end</span></div>
         </div>
       </div>
@@ -668,7 +679,7 @@
             <li><b>Project Coordinator</b><span class="when">Oct 2022 - Nov 2022</span></li>
           </ul>
           <ul class="wins">
-            <li><strong>3 enterprise systems</strong> delivered for Titan Company Ltd.</li>
+            <li><strong>2 enterprise systems</strong> delivered for Titan Company Ltd, with a third about to start its pilot.</li>
             <li><strong>35 VAPT findings</strong> remediated across Django APIs.</li>
             <li><strong>SSO</strong> with Microsoft Entra ID using MSAL.</li>
             <li><strong>SRS, FRS and test plans</strong> written for development handoffs.</li>
@@ -692,8 +703,8 @@
           <p class="lead">A state rank in my MCA, and steady daily problem solving on LeetCode alongside client work.</p>
         </div>
         <div class="badges">
-        <div class="badge">
-          <div class="medal">
+        <div class="badge rank-badge">
+          <div class="medal rank-medal">
             <svg viewBox="0 0 96 96" aria-hidden="true">
               <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cbff"/><stop offset="1" stop-color="#2f6fe8"/></linearGradient></defs>
               <path d="M30 60L20 92l14-6 8 12 8-30zM66 60l10 32-14-6-8 12-8-30z" fill="#2f6fe8" opacity=".85"/>
@@ -774,15 +785,15 @@ const PROJECTS = [
   { group: 'enterprise', cat: 'Enterprise · Titan Company Ltd', title: 'Track & Trace System',
     label: 'titan / track-and-trace', url: '', image: 'assets/projects/titan-track-trace.webp',
     desc: 'A traceability system for Titan’s CBE Case Plant, tracking production through the plant.',
-    mine: 'Delivered as part of a three-system engagement for Titan.', tags: ['Enterprise', 'Traceability', 'Full stack'] },
+    mine: 'Delivered to Titan and in use at the plant.', tags: ['Enterprise', 'Traceability', 'Full stack'] },
   { group: 'enterprise', cat: 'Enterprise · Titan Company Ltd', title: 'PPC Inventory Traceability',
     label: 'titan / ppc-inventory', url: '', image: 'assets/projects/titan-ppc.webp',
     desc: 'Production planning and control with inventory traceability for the CBE Case Plant.',
-    mine: 'Built and delivered for Titan’s production team.', tags: ['Enterprise', 'PPC', 'Inventory'] },
+    mine: 'Built for Titan’s production team and about to start its pilot.', tags: ['Pilot soon', 'Enterprise', 'PPC', 'Inventory'] },
   { group: 'enterprise', cat: 'Enterprise · Titan Company Ltd', title: 'Titan Suraksha Safety Portal',
     label: 'titan / suraksha-safety-portal', url: '', image: 'assets/projects/titan-safety.webp',
     desc: 'A UI/UX redesign of Suraksha, the safety portal for Titan’s CBE Case Plant.',
-    mine: 'Led the redesign from flows to finished UI.', tags: ['UI/UX', 'Figma', 'Frontend'] },
+    mine: 'Led the redesign from flows to finished UI, now delivered.', tags: ['UI/UX', 'Figma', 'Frontend'] },
   { group: 'saas', cat: 'SaaS · Community', title: 'Community Matrimony Platform',
     label: 'saas / matrimony', url: '', image: 'assets/projects/matrimony.webp',
     desc: 'A SaaS matrimony platform for a community, built from the first requirement to a working product.',
@@ -899,6 +910,12 @@ const PROJECTS = [
     if (e.isIntersecting && !timer) { step = 0; tick(); }
     else if (!e.isIntersecting && timer) { clearTimeout(timer); timer = null; }
   }, { threshold: 0.3 }).observe(document.getElementById('travel'));
+
+  // ---- Rank medal: rise, spin and settle when it comes into view ----
+  const rankBadge = document.querySelector('.rank-badge');
+  if (rankBadge) new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { rankBadge.classList.remove('play'); void rankBadge.offsetWidth; rankBadge.classList.add('play'); }
+  }, { threshold: 0.6 }).observe(rankBadge);
 
   // ---- Contact form -> mailto ----
   document.getElementById('contactForm').addEventListener('submit', e => {
