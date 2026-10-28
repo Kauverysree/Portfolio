@@ -218,7 +218,7 @@
   .skill small { display: block; font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; }
 
   /* About */
-  .about-grid { display: grid; grid-template-columns: 400px 1fr; gap: 72px; align-items: center; }
+  .about-grid { display: grid; grid-template-columns: 470px 1fr; gap: 72px; align-items: center; }
   .id-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
   .id-photo { aspect-ratio: 4/4.4; position: relative; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 30% 20%, rgb(var(--accent-rgb) / .35), transparent 55%), radial-gradient(circle at 80% 90%, rgb(var(--sky-rgb) / .15), transparent 50%), #0b1220; }
   .id-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
@@ -229,6 +229,17 @@
   .fact:last-child { border-bottom: 0; }
   .fact small { display: block; font-family: var(--mono); font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; }
   .fact span { font-size: 15.5px; font-weight: 500; }
+  .edu-row { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 4px; font-size: 14.5px; font-weight: 500; }
+  .edu-row .sep { color: var(--dim); }
+  @media (min-width: 761px) { .edu-row { flex-wrap: nowrap; white-space: nowrap; } }
+  .rank-hl { display: inline; white-space: nowrap; color: var(--text); font-weight: 600; }
+  .rank-hl .medal-ic { display: inline-block; vertical-align: -3px; margin-right: 6px; transform-origin: 50% 10%; }
+  .rk-num { display: inline-block; overflow: hidden; vertical-align: -0.28em; height: 1.3em; line-height: 1.3em; padding: 0 1px; color: #f5c542; }
+  .rk-num > span { display: inline-block; }
+  .rank-hl.play .rk-num > span { animation: rk-drop .9s cubic-bezier(.3,1.4,.5,1) .15s both; }
+  .rank-hl.play .medal-ic { animation: rk-swing 1.4s ease-out .1s both; }
+  @keyframes rk-drop { from { transform: translateY(-120%); } to { transform: translateY(0); } }
+  @keyframes rk-swing { 0% { transform: rotate(0); } 25% { transform: rotate(18deg); } 50% { transform: rotate(-12deg); } 75% { transform: rotate(6deg); } 100% { transform: rotate(0); } }
   .about-copy p { color: var(--muted); font-size: 18px; margin-top: 20px; max-width: 660px; }
   .about-copy p strong { color: var(--text); font-weight: 600; }
 
@@ -260,16 +271,6 @@
   .practice { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; padding: 40px; border: 1px solid var(--border-2); border-radius: 28px; background: radial-gradient(circle at 90% 50%, rgb(var(--accent-rgb) / .14), transparent 55%), var(--surface); }
   .practice h2 { font-size: clamp(32px, 4vw, 48px); }
   .badges { display: grid; gap: 14px; }
-  .rank-medal svg { transform-origin: 50% 60%; transform: translateY(-6px); }
-  .rank-badge.play .rank-medal svg { animation: rank-rise 2.2s cubic-bezier(.2,.8,.2,1) both; }
-  @keyframes rank-rise {
-    0%   { transform: translateY(26px) scale(.35) rotate(-200deg); opacity: 0; }
-    35%  { opacity: 1; }
-    65%  { transform: translateY(-20px) scale(1.12) rotate(370deg); }
-    82%  { transform: translateY(-3px) scale(.97) rotate(356deg); }
-    100% { transform: translateY(-6px) scale(1) rotate(360deg); }
-  }
-  .rank-badge::after { content: ""; }
   .badge { display: flex; align-items: center; gap: 20px; padding: 18px 26px 18px 18px; border-radius: 22px; border: 1px solid var(--border-2); background: rgba(5,8,15,.7); }
   .badge .medal { width: 96px; height: 96px; position: relative; flex: none; }
   .badge .medal img, .badge .medal svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
@@ -308,7 +309,7 @@
     html { scroll-behavior: auto; }
     .dot { animation: none; }
     .shot img { transition: none; }
-    .rank-badge.play .rank-medal svg { animation: none; }
+    .rank-hl.play .rk-num > span, .rank-hl.play .medal-ic { animation: none; }
     .scene *, .scene .px { animation: none !important; transition: none !important; }
   }
 
@@ -358,7 +359,7 @@
     <li><a href="#stack">Stack</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#practice">Recognition</a></li>
+    <li><a href="#practice">Practice</a></li>
   </ul>
   <a href="#contact" class="cta">Let's connect <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
@@ -366,7 +367,7 @@
   </button>
 </header>
 <nav class="drawer" id="drawer" aria-label="Mobile">
-  <a href="#work">Work</a><a href="#stack">Stack</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#practice">Recognition</a>
+  <a href="#work">Work</a><a href="#stack">Stack</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#practice">Practice</a>
   <a href="#contact" class="cta">Let's connect <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
 </nav>
 
@@ -650,7 +651,7 @@
         </div>
         <div class="facts">
           <div class="fact"><small>Role</small><span>Full Stack Senior Developer, Pinesphere Solutions</span></div>
-          <div class="fact"><small>Education</small><span>MCA, Anna University · State rank 26 of 3,560</span></div>
+          <div class="fact"><small>Education</small><span class="edu-row"><span>MCA, Anna University</span><span class="sep" aria-hidden="true">·</span><span class="rank-hl" id="rankHl"><svg class="medal-ic" width="16" height="18" viewBox="0 0 16 18" aria-hidden="true"><path d="M4.5 9.5L2.5 17l3-1.5L7 17.5l1-6zM11.5 9.5l2 7.5-3-1.5L9 17.5l-1-6z" fill="#4f8cff"/><circle cx="8" cy="7" r="6" fill="#f5c542"/><circle cx="8" cy="7" r="3.6" fill="none" stroke="#c8901a" stroke-width="1.2"/></svg>State rank <span class="rk-num"><span>26</span></span> of 3,560</span></span></div>
           <div class="fact"><small>Based in</small><span>Erode, Tamil Nadu, India</span></div>
         </div>
       </aside>
@@ -694,28 +695,15 @@
   </section>
 
   <!-- PRACTICE -->
-  <section id="practice" data-name="recognition">
+  <section id="practice" data-name="practice">
     <div class="wrap">
       <div class="practice reveal">
         <div>
-          <span class="eyebrow">Recognition</span>
-          <h2>Proven in exams, <span class="grad">practised every day.</span></h2>
-          <p class="lead">A state rank in my MCA, and steady daily problem solving on LeetCode alongside client work.</p>
+          <span class="eyebrow">Coding practice</span>
+          <h2>Problem solving, <span class="grad">every day.</span></h2>
+          <p class="lead">Steady daily practice on LeetCode, alongside client work.</p>
         </div>
         <div class="badges">
-        <div class="badge rank-badge">
-          <div class="medal rank-medal">
-            <svg viewBox="0 0 96 96" aria-hidden="true">
-              <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9cbff"/><stop offset="1" stop-color="#2f6fe8"/></linearGradient></defs>
-              <path d="M30 60L20 92l14-6 8 12 8-30zM66 60l10 32-14-6-8 12-8-30z" fill="#2f6fe8" opacity=".85"/>
-              <circle cx="48" cy="40" r="36" fill="url(#rg)"/>
-              <circle cx="48" cy="40" r="28" fill="#0a1222"/>
-              <text x="48" y="38" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" letter-spacing="1.5" fill="#8ab8ff">RANK</text>
-              <text x="48" y="58" text-anchor="middle" font-family="Urbanist, sans-serif" font-weight="800" font-size="22" fill="#fff">26</text>
-            </svg>
-          </div>
-          <div><b>State rank 26</b><span>MCA, Anna University · of 3,560</span></div>
-        </div>
         <!-- To link your profile, wrap the badge in: <a href="https://leetcode.com/u/YOUR_USERNAME/" target="_blank" rel="noopener"> ... </a> -->
         <div class="badge">
           <div class="medal">
@@ -745,7 +733,7 @@
         <p class="lead">Have a product to build, a system to secure or a role to fill? Let's talk.</p>
         <ul class="channels">
           <li><a href="mailto:kauverysree@gmail.com"><small>Email</small><span>kauverysree@gmail.com</span></a></li>
-          <li><a href="tel:+917418333090"><small>Phone</small><span>+91 74183 33090</span></a></li>
+          <li><a href="tel:+917418333091"><small>Phone</small><span>+91 74183 33091</span></a></li>
           <li><a href="https://linkedin.com/in/kauverysreerajandran" target="_blank" rel="noopener"><small>LinkedIn</small><span>in/kauverysreerajandran</span></a></li>
           <li><div><small>Location</small><span>Erode, Tamil Nadu</span></div></li>
         </ul>
@@ -911,11 +899,9 @@ const PROJECTS = [
     else if (!e.isIntersecting && timer) { clearTimeout(timer); timer = null; }
   }, { threshold: 0.3 }).observe(document.getElementById('travel'));
 
-  // ---- Rank medal: rise, spin and settle when it comes into view ----
-  const rankBadge = document.querySelector('.rank-badge');
-  if (rankBadge) new IntersectionObserver(([e]) => {
-    if (e.isIntersecting) { rankBadge.classList.remove('play'); void rankBadge.offsetWidth; rankBadge.classList.add('play'); }
-  }, { threshold: 0.6 }).observe(rankBadge);
+  // ---- Education highlight: play when the About card comes into view ----
+  const rankHl = document.getElementById('rankHl');
+  if (rankHl) new IntersectionObserver(([e]) => { if (e.isIntersecting) rankHl.classList.add('play'); }, { threshold: 0.8 }).observe(rankHl);
 
   // ---- Contact form -> mailto ----
   document.getElementById('contactForm').addEventListener('submit', e => {
